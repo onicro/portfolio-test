@@ -1,925 +1,996 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elena Voss — Designer & Visual Artist</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRP Pharmaceuticals — Physician Dispensing & Pharmaceutical Repackaging</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					colors: {
+						brand: {
+							50: '#F2F8FD',
+							100: '#DCEEFF',
+							200: '#BDDFFF',
+							300: '#8FC8F6',
+							400: '#5FA8EA',
+							500: '#2F84D6',
+							600: '#1F6FBE',
+							700: '#1B5D9E',
+							800: '#1A4A7C',
+							900: '#163A60',
+						},
+						accent: {
+							50: '#FFF4F4',
+							100: '#FFE0E0',
+							200: '#FFC4C4',
+							300: '#FF9A9A',
+							400: '#F56B6B',
+							500: '#E53935',
+							600: '#D32F2F',
+							700: '#B32626',
+							800: '#8F1F1F',
+							900: '#6F1818',
+						},
+						navy: {
+							50: '#F4F8FB',
+							100: '#E6EEF5',
+							200: '#CAD8E6',
+							300: '#AABFD3',
+							400: '#7D9AB5',
+							500: '#5D7B96',
+							600: '#47637D',
+							700: '#334B63',
+							800: '#22384D',
+							900: '#162A3A',
+						},
+						surface: {
+							50: '#FBFCFE',
+							100: '#F4F7FA',
+							200: '#E8EDF3',
+							300: '#D9E2EC',
+						}
+					},
+					fontFamily: {
+						sans: ['Inter', 'sans-serif'],
+					}
+				}
+			}
+		}
+	</script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Instrument+Serif:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
-
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      fontFamily: {
-        heading: ['Instrument Serif', 'serif'],
-        body: ['Manrope', 'sans-serif'],
-        sans: ['Inter', 'sans-serif'],
-      },
-      colors: {
-        brand: {
-          bg: '#F5F5F5',
-          dark: '#1A1A1A',
-          muted: '#71717A',
-          light: '#A1A1AA',
+        /* Scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-      }
-    }
-  }
-}
-</script>
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
 
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Manrope', sans-serif;
-    background: #F5F5F5;
-    color: #1A1A1A;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+        /* Subtle grid pattern for hero */
+        .hero-grid {
+            background-image:
+                linear-gradient(rgba(15, 23, 42, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 23, 42, 0.02) 1px, transparent 1px);
+            background-size: 64px 64px;
+        }
 
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
+        /* Dashboard mockup styling */
+        .dash-sidebar { background: linear-gradient(180deg, #1A4A7C 0%, #163A60 100%); }
+        .dash-bar { animation: dashGrow 1.5s ease-out forwards; transform-origin: bottom; }
+        @keyframes dashGrow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 
-  .font-heading { font-family: 'Instrument Serif', serif; }
+        /* Pulse for status dots */
+        .pulse-dot {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
 
-  /* Hero entrance */
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fade-in-up {
-    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    opacity: 0;
-  }
-  .delay-1 { animation-delay: 0.1s; }
-  .delay-2 { animation-delay: 0.25s; }
-  .delay-3 { animation-delay: 0.4s; }
-  .delay-4 { animation-delay: 0.55s; }
-  .delay-5 { animation-delay: 0.7s; }
+        /* Mobile menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        .mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
 
-  /* Stagger children */
-  .stagger-in > * {
-    animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    opacity: 0;
-  }
-  .stagger-in > *:nth-child(1) { animation-delay: 0.05s; }
-  .stagger-in > *:nth-child(2) { animation-delay: 0.12s; }
-  .stagger-in > *:nth-child(3) { animation-delay: 0.19s; }
-  .stagger-in > *:nth-child(4) { animation-delay: 0.26s; }
-  .stagger-in > *:nth-child(5) { animation-delay: 0.33s; }
-  .stagger-in > *:nth-child(6) { animation-delay: 0.40s; }
-  .stagger-in > *:nth-child(7) { animation-delay: 0.47s; }
-  .stagger-in > *:nth-child(8) { animation-delay: 0.54s; }
-  .stagger-in > *:nth-child(9) { animation-delay: 0.61s; }
+        /* Form focus rings */
+		.form-input:focus {
+			outline: none;
+			box-shadow: 0 0 0 3px rgba(47, 132, 214, 0.15);
+			border-color: #2F84D6;
+		}
 
-  /* Artwork hover overlay */
-  .artwork-card .artwork-overlay {
-    opacity: 0;
-    transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .artwork-card:hover .artwork-overlay {
-    opacity: 1;
-  }
-  .artwork-card .artwork-img {
-    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .artwork-card:hover .artwork-img {
-    transform: scale(1.04);
-  }
+        /* Badge shimmer */
+        .badge-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .badge-shine::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            50% { left: 150%; }
+            100% { left: 150%; }
+        }
 
-  /* Modal */
-  .modal-backdrop {
-    transition: opacity 0.3s ease;
-  }
-  .modal-content {
-    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
-  }
-  .modal-hidden .modal-backdrop { opacity: 0; pointer-events: none; }
-  .modal-hidden .modal-content { transform: translateY(40px); opacity: 0; }
-  .modal-visible .modal-backdrop { opacity: 1; pointer-events: auto; }
-  .modal-visible .modal-content { transform: translateY(0); opacity: 1; }
-
-  /* Timeline line animation */
-  @keyframes drawLine {
-    from { height: 0; }
-    to { height: 100%; }
-  }
-  .timeline-line {
-    animation: drawLine 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-  }
-
-  /* Tag pill hover */
-  .tag-pill {
-    transition: all 0.3s ease;
-  }
-  .tag-pill:hover {
-    background: #1A1A1A;
-    color: #fff;
-  }
-
-  /* Nav link underline */
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: #1A1A1A;
-    transition: width 0.3s ease;
-  }
-  .nav-link:hover::after {
-    width: 100%;
-  }
-
-  /* Scroll indicator */
-  @keyframes scrollBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(6px); }
-  }
-  .scroll-indicator {
-    animation: scrollBounce 2s ease-in-out infinite;
-  }
-
-  /* Section fade-in on scroll */
-  .section-reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .section-reveal.revealed {
-    opacity: 1;
-    transform: translateY(0);
-  }
-</style>
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #F4F6F8; }
+        ::-webkit-scrollbar-thumb { background: #BCCCDC; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #829AB1; }
+    </style>
 </head>
-<body>
+<body class="bg-white text-navy-900 antialiased">
 
-<!-- ═══════════════════════════════════════ -->
-<!-- NAVIGATION                              -->
-<!-- ═══════════════════════════════════════ -->
-<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" style="background: rgba(245,245,245,0.85); backdrop-filter: blur(16px);">
-  <div class="max-w-[1400px] mx-auto px-6 md:px-10 flex items-center justify-between h-16 md:h-20">
-    <a href="#hero" class="font-heading text-xl md:text-2xl font-500 tracking-tight text-brand-dark">Elena Voss</a>
-    
-    <div class="hidden md:flex items-center gap-8">
-      <a href="#portfolio" class="nav-link relative text-sm font-medium tracking-wide text-brand-muted hover:text-brand-dark transition-colors">Work</a>
-      <a href="#process" class="nav-link relative text-sm font-medium tracking-wide text-brand-muted hover:text-brand-dark transition-colors">Process</a>
-      <a href="#contact" class="nav-link relative text-sm font-medium tracking-wide text-brand-muted hover:text-brand-dark transition-colors">Contact</a>
-    </div>
+    <!-- ======================== HEADER ======================== -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-surface-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <!-- Logo -->
+			<a href="#" class="flex items-center gap-3 group">
+				<img src="brp-logo.png" alt="BRP Pharmaceuticals logo" class="h-12 w-auto">
+				<div class="flex flex-col leading-none">
+					<span class="text-navy-900 font-semibold text-[15px] tracking-tight">Precision in Every Dose.</span>
+					<span class="text-navy-400 text-[10px] font-medium tracking-wider uppercase">Repackaging & Dispensing</span>
+				</div>
+			</a>
 
-    <button id="mobile-menu-btn" class="md:hidden p-2 text-brand-dark" aria-label="Menu">
-      <i data-lucide="menu" class="w-5 h-5"></i>
-    </button>
-  </div>
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex items-center gap-1">
+                <a href="#home" class="px-3.5 py-2 text-sm font-medium text-navy-700 hover:text-brand-600 transition-colors rounded-md hover:bg-surface-100">Home</a>
+                <a href="#services" class="px-3.5 py-2 text-sm font-medium text-navy-700 hover:text-brand-600 transition-colors rounded-md hover:bg-surface-100">Services</a>
+                <a href="#portal" class="px-3.5 py-2 text-sm font-medium text-navy-700 hover:text-brand-600 transition-colors rounded-md hover:bg-surface-100">Products</a>
+                <a href="#about" class="px-3.5 py-2 text-sm font-medium text-navy-700 hover:text-brand-600 transition-colors rounded-md hover:bg-surface-100">About</a>
+                <a href="#contact" class="px-3.5 py-2 text-sm font-medium text-navy-700 hover:text-brand-600 transition-colors rounded-md hover:bg-surface-100">Contact</a>
+            </nav>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 transition-all duration-500 ease-in-out" style="background: rgba(245,245,245,0.98);">
-    <div class="px-6 py-6 flex flex-col gap-4">
-      <a href="#portfolio" class="mobile-link text-lg font-heading text-brand-dark py-2 border-b border-zinc-200">Work</a>
-      <a href="#process" class="mobile-link text-lg font-heading text-brand-dark py-2 border-b border-zinc-200">Process</a>
-      <a href="#contact" class="mobile-link text-lg font-heading text-brand-dark py-2">Contact</a>
-    </div>
-  </div>
-</nav>
-
-
-<!-- ═══════════════════════════════════════ -->
-<!-- HERO SECTION                            -->
-<!-- ═══════════════════════════════════════ -->
-<section id="hero" class="min-h-screen flex items-center justify-center px-6 md:px-10 pt-20 relative overflow-hidden">
-  <!-- Subtle background grain -->
-  <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
-
-  <div class="max-w-[1400px] mx-auto w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-      
-      <!-- Left: Bio & Contact -->
-      <div class="lg:col-span-5 order-2 lg:order-1">
-        <div class="animate-fade-in-up delay-1">
-          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-muted mb-4">Designer & Visual Artist</p>
-        </div>
-        
-        <h1 class="font-heading text-[44px] sm:text-[56px] lg:text-[68px] font-400 leading-[1.05] tracking-tight text-brand-dark mb-6 animate-fade-in-up delay-2">
-          Creating visual<br>
-          <span class="italic text-brand-muted">narratives</span> that<br>
-          resonate & inspire
-        </h1>
-
-        <p class="text-[15px] leading-relaxed text-brand-muted max-w-md mb-8 animate-fade-in-up delay-3">
-          Multidisciplinary designer based in Amsterdam, focused on brand identity, 
-          editorial design, and visual storytelling. I believe design should evoke feeling 
-          before it communicates function.
-        </p>
-
-        <div class="flex flex-wrap gap-3 mb-10 animate-fade-in-up delay-4">
-          <span class="tag-pill cursor-pointer px-3 py-1.5 text-xs font-medium tracking-wide border border-zinc-300 rounded-full text-brand-dark bg-white">Brand Identity</span>
-          <span class="tag-pill cursor-pointer px-3 py-1.5 text-xs font-medium tracking-wide border border-zinc-300 rounded-full text-brand-dark bg-white">Editorial</span>
-          <span class="tag-pill cursor-pointer px-3 py-1.5 text-xs font-medium tracking-wide border border-zinc-300 rounded-full text-brand-dark bg-white">Typography</span>
-          <span class="tag-pill cursor-pointer px-3 py-1.5 text-xs font-medium tracking-wide border border-zinc-300 rounded-full text-brand-dark bg-white">Visual Art</span>
-          <span class="tag-pill cursor-pointer px-3 py-1.5 text-xs font-medium tracking-wide border border-zinc-300 rounded-full text-brand-dark bg-white">Motion</span>
-        </div>
-
-        <div class="flex items-center gap-6 animate-fade-in-up delay-5">
-          <a href="mailto:hello@elenavoss.com" class="inline-flex items-center gap-2 px-6 py-3 bg-brand-dark text-white text-sm font-medium rounded-full hover:bg-black transition-colors">
-            <i data-lucide="mail" class="w-4 h-4"></i>
-            Get in Touch
-          </a>
-          <a href="#portfolio" class="inline-flex items-center gap-2 text-sm font-medium text-brand-muted hover:text-brand-dark transition-colors group">
-            View Work
-            <i data-lucide="arrow-down" class="w-4 h-4 group-hover:translate-y-0.5 transition-transform"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Right: Featured Image -->
-      <div class="lg:col-span-7 order-1 lg:order-2 animate-fade-in-up delay-2">
-        <div class="relative">
-          <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-200">
-            <img src="https://picsum.photos/seed/hero-featured/1400/1050.jpg" alt="Featured work" class="w-full h-full object-cover">
-          </div>
-          <!-- Floating label -->
-          <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-3 shadow-lg">
-            <p class="text-[10px] uppercase tracking-[0.15em] font-semibold text-brand-muted mb-0.5">Featured Project</p>
-            <p class="text-sm font-heading text-brand-dark">Lumière — Brand System</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Scroll Indicator -->
-    <div class="hidden lg:flex justify-center mt-16 animate-fade-in-up delay-5">
-      <div class="scroll-indicator flex flex-col items-center gap-2 text-brand-muted">
-        <span class="text-[10px] uppercase tracking-[0.2em] font-medium">Scroll</span>
-        <i data-lucide="chevron-down" class="w-4 h-4"></i>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════ -->
-<!-- PORTFOLIO GRID                          -->
-<!-- ═══════════════════════════════════════ -->
-<section id="portfolio" class="px-6 md:px-10 py-24 md:py-32 section-reveal">
-  <div class="max-w-[1400px] mx-auto">
-    
-    <!-- Section Header -->
-    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 md:mb-16">
-      <div>
-        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-muted mb-3">Selected Work</p>
-        <h2 class="font-heading text-[32px] sm:text-[40px] lg:text-[52px] font-400 leading-tight tracking-tight">Portfolio</h2>
-      </div>
-      
-      <!-- Filter Tabs -->
-      <div class="flex gap-2 mt-6 sm:mt-0" id="filter-tabs">
-        <button class="filter-btn active px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border transition-all bg-brand-dark text-white border-brand-dark" data-filter="all">All</button>
-        <button class="filter-btn px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-zinc-300 text-brand-muted hover:border-brand-dark hover:text-brand-dark transition-all" data-filter="brand">Brand</button>
-        <button class="filter-btn px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-zinc-300 text-brand-muted hover:border-brand-dark hover:text-brand-dark transition-all" data-filter="editorial">Editorial</button>
-        <button class="filter-btn px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-zinc-300 text-brand-muted hover:border-brand-dark hover:text-brand-dark transition-all" data-filter="art">Art</button>
-      </div>
-    </div>
-
-    <!-- Portfolio Grid -->
-    <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 stagger-in">
-      
-      <!-- Artwork 1 -->
-      <div class="artwork-card cursor-pointer group" data-category="brand" data-title="Lumière — Brand System" data-desc="Complete brand identity for a contemporary lighting studio. The system draws from interplay of light and shadow, using warm neutrals and sharp geometric forms." data-tags="Brand Identity,Visual System,Typography" data-img="https://picsum.photos/seed/work-lumiere/800/600.jpg" data-year="2024">
-        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-zinc-200 relative">
-          <img src="https://picsum.photos/seed/work-lumiere/800/600.jpg" alt="Lumière" class="artwork-img w-full h-full object-cover">
-          <div class="artwork-overlay absolute inset-0 bg-black/40 backdrop-blur-[4px] flex items-center justify-center">
-            <span class="text-white text-sm font-medium tracking-wide flex items-center gap-2">
-              View Project <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
-            </span>
-          </div>
-        </div>
-        <div class="mt-3 px-1">
-          <h3 class="font-heading text-lg text-brand-dark">Lumière</h3>
-          <p class="text-xs text-brand-muted mt-0.5">Brand Identity — 2024</p>
-        </div>
-      </div>
-
-      <!-- Artwork 2 -->
-      <div class="artwork-card cursor-pointer group" data-category="editorial" data-title="Mono Journal — Issue 07" data-desc="Editorial design for a quarterly arts publication. Focused on restrained typography and generous whitespace to let the photography breathe." data-tags="Editorial,Typography,Print" data-img="https://picsum.photos/seed/work-mono/800/600.jpg" data-year="2024">
-        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-zinc-200 relative">
-          <img src="https://picsum.photos/seed/work-mono/800/600.jpg" alt="Mono Journal" class="artwork-img w-full h-full object-cover">
-          <div class="artwork-overlay absolute inset-0 bg-black/40 backdrop-blur-[4px] flex items-center justify-center">
-            <span class="text-white text-sm font-medium tracking-wide flex items-center gap-2">
-              View Project <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
-            </span>
-          </div>
-        </div>
-        <div class="mt-3 px-1">
-          <h3 class="font-heading text-lg text-brand-dark">Mono Journal</h3>
-          <p class="text-xs text-brand-muted mt-0.5">Editorial Design — 2024</p>
-        </div>
-      </div>
-
-      <!-- Artwork 3 -->
-      <div class="artwork-card cursor-pointer group" data-category="art" data-title="Chromatic Fields" data-desc="A personal exploration series combining generative algorithms with hand-painted textures. Each piece is a unique interplay of digital precision and organic imperfection." data-tags="Generative Art,Mixed Media,Visual" data-img="https://picsum.photos/seed/work-chroma/800/600.jpg" data-year="2024">
-        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-zinc-200 relative">
-          <img src="https://picsum.photos/seed/work-chroma/800/600.jpg" alt="Chromatic Fields" class="artwork-img w-full h-full object-cover">
-          <div class="artwork-overlay absolute inset-0 bg-black/40 backdrop-blur-[4px] flex items-center justify-center">
-            <span class="text-white text-sm font-medium tracking-wide flex items-center gap-2">
-              View Project <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
-            </span>
-          </div>
-        </div>
-        <div class="mt-3 px-1">
-          <h3 class="font-heading text-lg text-brand-dark">Chromatic Fields</h3>
-          <p class="text-xs text-brand-muted mt-0.5">Generative Art — 2024</p>
-        </div>
-      </div>
-
-      <!-- Artwork 4 -->
-      <div class="artwork-card cursor-pointer group" data-category="brand" data-title="Aura Wellness" data-desc="Visual identity and packaging system for a holistic wellness brand. Soft earth tones paired with minimalist typography create a sense of calm sophistication." data-tags="Brand Identity,Packaging,Art Direction" data-img="https://picsum.photos/seed/work-aura/800/600.jpg" data-year="2023">
-        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-zinc-200 relative">
-          <img src="https://picsum.photos/seed/work-aura/800/600.jpg" alt="Aura Wellness" class="artwork-img w-full h-full object-cover">
-          <div class="artwork-overlay absolute inset-0 bg-black/40 backdrop-blur-[4px] flex items-center justify-center">
-            <span class="text-white text-sm font-medium tracking-wide flex items-center gap-2">
-              View Project <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
-            </span>
-          </div>
-        </div>
-        <div class="mt-3 px-1">
-          <h3 class="font-heading text-lg text-brand-dark">Aura Wellness</h3>
-          <p class="text-xs text-brand-muted mt-0.5">Brand Identity — 2023</p>
-        </div>
-      </div>
-
-      <!-- Artwork 5 -->
-      <div class="artwork-card cursor-pointer group" data-category="editorial" data-title="Archetype Zine" data-desc="A limited-run zine exploring the intersection of architecture and graphic design. Bold typography and stark contrasts reflect the brutalist inspiration behind the work." data-tags="Editorial,Zine,Typography" data-img="https://picsum.photos/seed/work-archetype/800/600.jpg" data-year="2023">
-        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-zinc-200 relative">
-          <img src="https://picsum.photos/seed/work-archetype/800/600.jpg" alt="Archetype Zine" class="artwork-img w-full h-full object-cover">
-          <div class="artwork-overlay absolute inset-0 bg-black/40 backdrop-blur-[4px] flex items-center justify-center">
-            <span class="text-white text-sm font-medium tracking-wide flex items-center gap-2">
-              View Project <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
-            </span>
-          </div>
-        </div>
-        <div class="mt-3 px-1">
-          <h3 class="font-heading text-lg text-brand-dark">Archetype Zine</h3>
-          <p class="text-xs text-brand-muted mt-0.5">Editorial — 2023</p>
-        </div>
-      </div>
-
-      <!-- Artwork 6 -->
-      <div class="artwork-card cursor-pointer group" data-category="art" data-title="Still Life Studies" data-desc="A series of digital paintings exploring composition, color, and light through the classic tradition of still life, reimagined with contemporary digital techniques." data-tags="Digital Art,Painting,Still Life" data-img="https://picsum.photos/seed/work-still/800/600.jpg" data-year="2023">
-        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-zinc-200 relative">
-          <img src="https://picsum.photos/seed/work-still/800/600.jpg" alt="Still Life Studies" class="artwork-img w-full h-full object-cover">
-          <div class="artwork-overlay absolute inset-0 bg-black/40 backdrop-blur-[4px] flex items-center justify-center">
-            <span class="text-white text-sm font-medium tracking-wide flex items-center gap-2">
-              View Project <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
-            </span>
-          </div>
-        </div>
-        <div class="mt-3 px-1">
-          <h3 class="font-heading text-lg text-brand-dark">Still Life Studies</h3>
-          <p class="text-xs text-brand-muted mt-0.5">Digital Art — 2023</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════ -->
-<!-- ARTWORK DETAIL MODAL                    -->
-<!-- ═══════════════════════════════════════ -->
-<div id="artwork-modal" class="fixed inset-0 z-[100] modal-hidden">
-  <div class="modal-backdrop absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
-  <div class="modal-content absolute inset-4 sm:inset-8 md:inset-12 lg:inset-16 bg-white rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-2xl">
-    
-    <!-- Image Side -->
-    <div class="md:w-[55%] bg-zinc-100 flex-shrink-0">
-      <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
-    </div>
-
-    <!-- Details Side -->
-    <div class="md:w-[45%] p-6 sm:p-8 md:p-10 lg:p-12 overflow-y-auto flex flex-col">
-      <div class="flex justify-between items-start mb-8">
-        <div>
-          <p class="text-[10px] uppercase tracking-[0.2em] font-semibold text-brand-muted mb-2">Project Details</p>
-          <h2 id="modal-title" class="font-heading text-2xl sm:text-3xl text-brand-dark leading-tight"></h2>
-        </div>
-        <button onclick="closeModal()" class="p-2 rounded-full hover:bg-zinc-100 transition-colors text-brand-muted hover:text-brand-dark flex-shrink-0">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <p id="modal-desc" class="text-[15px] leading-relaxed text-brand-muted mb-8"></p>
-
-      <div class="mb-8">
-        <p class="text-[10px] uppercase tracking-[0.2em] font-semibold text-brand-muted mb-3">Tags</p>
-        <div id="modal-tags" class="flex flex-wrap gap-2"></div>
-      </div>
-
-      <div class="mt-auto pt-6 border-t border-zinc-200">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-[10px] uppercase tracking-[0.2em] font-semibold text-brand-muted mb-1">Year</p>
-            <p id="modal-year" class="text-sm font-heading text-brand-dark"></p>
-          </div>
-          <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-dark text-white text-sm font-medium rounded-full hover:bg-black transition-colors">
-            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            Full Case Study
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════ -->
-<!-- PROCESS / TIMELINE                      -->
-<!-- ═══════════════════════════════════════ -->
-<section id="process" class="px-6 md:px-10 py-24 md:py-32 section-reveal">
-  <div class="max-w-[1400px] mx-auto">
-    
-    <div class="text-center mb-16 md:mb-20">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-muted mb-3">How I Work</p>
-      <h2 class="font-heading text-[32px] sm:text-[40px] lg:text-[52px] font-400 leading-tight tracking-tight">Process</h2>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-      
-      <!-- Timeline -->
-      <div class="lg:col-span-7">
-        <div class="relative pl-8 md:pl-10">
-          <!-- Vertical Line -->
-          <div class="absolute left-0 top-2 bottom-2 w-px bg-zinc-300">
-            <div class="timeline-line w-full bg-brand-dark" style="height:0;"></div>
-          </div>
-
-          <!-- Step 1 -->
-          <div class="relative mb-12 md:mb-16">
-            <div class="absolute -left-8 md:-left-10 top-1 w-2.5 h-2.5 rounded-full bg-brand-dark border-4 border-[#F5F5F5] -translate-x-1/2"></div>
-            <div class="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-zinc-100">
-              <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-muted">Phase 01</span>
-              <h3 class="font-heading text-xl md:text-2xl text-brand-dark mt-2 mb-3">Discovery & Research</h3>
-              <p class="text-[14px] leading-relaxed text-brand-muted">
-                Every project begins with deep listening. I research the brand, audience, competitors, 
-                and cultural context. This phase shapes the strategic foundation — understanding the "why" 
-                before exploring the "how."
-              </p>
+            <!-- Login + Mobile Toggle -->
+            <div class="flex items-center gap-3">
+                <a href="#portal" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-lg transition-all duration-200 shadow-sm hover:shadow-md hover:shadow-brand-600/20">
+                    <i data-lucide="log-in" class="w-4 h-4"></i>
+                    Client Login
+                </a>
+                <button id="mobileToggle" class="lg:hidden p-2 text-navy-500 hover:text-navy-800 hover:bg-surface-100 rounded-lg transition-colors">
+                    <i data-lucide="menu" class="w-5 h-5" id="menuIcon"></i>
+                </button>
             </div>
-          </div>
-
-          <!-- Step 2 -->
-          <div class="relative mb-12 md:mb-16">
-            <div class="absolute -left-8 md:-left-10 top-1 w-2.5 h-2.5 rounded-full bg-brand-dark border-4 border-[#F5F5F5] -translate-x-1/2"></div>
-            <div class="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-zinc-100">
-              <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-muted">Phase 02</span>
-              <h3 class="font-heading text-xl md:text-2xl text-brand-dark mt-2 mb-3">Concept & Exploration</h3>
-              <p class="text-[14px] leading-relaxed text-brand-muted">
-                With strategy as the guide, I explore visual directions through mood boards, 
-                rough sketches, and typographic experiments. Multiple concepts are developed — 
-                each telling a different story.
-              </p>
-            </div>
-          </div>
-
-          <!-- Step 3 -->
-          <div class="relative mb-12 md:mb-16">
-            <div class="absolute -left-8 md:-left-10 top-1 w-2.5 h-2.5 rounded-full bg-brand-dark border-4 border-[#F5F5F5] -translate-x-1/2"></div>
-            <div class="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-zinc-100">
-              <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-muted">Phase 03</span>
-              <h3 class="font-heading text-xl md:text-2xl text-brand-dark mt-2 mb-3">Design & Refine</h3>
-              <p class="text-[14px] leading-relaxed text-brand-muted">
-                The chosen concept is refined with meticulous attention to detail — every pixel, 
-                curve, and color choice is deliberate. Iteration through feedback ensures 
-                the design evolves toward perfection.
-              </p>
-            </div>
-          </div>
-
-          <!-- Step 4 -->
-          <div class="relative">
-            <div class="absolute -left-8 md:-left-10 top-1 w-2.5 h-2.5 rounded-full bg-brand-dark border-4 border-[#F5F5F5] -translate-x-1/2"></div>
-            <div class="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-zinc-100">
-              <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-muted">Phase 04</span>
-              <h3 class="font-heading text-xl md:text-2xl text-brand-dark mt-2 mb-3">Deliver & Launch</h3>
-              <p class="text-[14px] leading-relaxed text-brand-muted">
-                Final assets are delivered with comprehensive brand guidelines, ensuring 
-                consistent application across all touchpoints. I remain available through 
-                the launch phase and beyond.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tools / Skills -->
-      <div class="lg:col-span-5">
-        <div class="bg-white rounded-2xl p-8 md:p-10 shadow-sm border border-zinc-100 sticky top-28">
-          <h3 class="font-heading text-2xl text-brand-dark mb-6">Tools & Skills</h3>
-          
-          <div class="space-y-5">
-            <div>
-              <div class="flex justify-between mb-2">
-                <span class="text-sm font-medium text-brand-dark">Brand Identity</span>
-                <span class="text-xs text-brand-muted">95%</span>
-              </div>
-              <div class="h-1.5 bg-zinc-100 rounded-full overflow-hidden">
-                <div class="h-full bg-brand-dark rounded-full" style="width: 95%;"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-2">
-                <span class="text-sm font-medium text-brand-dark">Typography</span>
-                <span class="text-xs text-brand-muted">92%</span>
-              </div>
-              <div class="h-1.5 bg-zinc-100 rounded-full overflow-hidden">
-                <div class="h-full bg-brand-dark rounded-full" style="width: 92%;"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-2">
-                <span class="text-sm font-medium text-brand-dark">Editorial Design</span>
-                <span class="text-xs text-brand-muted">88%</span>
-              </div>
-              <div class="h-1.5 bg-zinc-100 rounded-full overflow-hidden">
-                <div class="h-full bg-brand-dark rounded-full" style="width: 88%;"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-2">
-                <span class="text-sm font-medium text-brand-dark">Motion Design</span>
-                <span class="text-xs text-brand-muted">78%</span>
-              </div>
-              <div class="h-1.5 bg-zinc-100 rounded-full overflow-hidden">
-                <div class="h-full bg-brand-dark rounded-full" style="width: 78%;"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-2">
-                <span class="text-sm font-medium text-brand-dark">Illustration</span>
-                <span class="text-xs text-brand-muted">85%</span>
-              </div>
-              <div class="h-1.5 bg-zinc-100 rounded-full overflow-hidden">
-                <div class="h-full bg-brand-dark rounded-full" style="width: 85%;"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-8 pt-6 border-t border-zinc-100">
-            <p class="text-[10px] uppercase tracking-[0.2em] font-semibold text-brand-muted mb-4">Software</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="px-3 py-1.5 text-xs font-medium bg-zinc-100 rounded-lg text-brand-dark">Figma</span>
-              <span class="px-3 py-1.5 text-xs font-medium bg-zinc-100 rounded-lg text-brand-dark">Photoshop</span>
-              <span class="px-3 py-1.5 text-xs font-medium bg-zinc-100 rounded-lg text-brand-dark">Illustrator</span>
-              <span class="px-3 py-1.5 text-xs font-medium bg-zinc-100 rounded-lg text-brand-dark">InDesign</span>
-              <span class="px-3 py-1.5 text-xs font-medium bg-zinc-100 rounded-lg text-brand-dark">After Effects</span>
-              <span class="px-3 py-1.5 text-xs font-medium bg-zinc-100 rounded-lg text-brand-dark">Blender</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════ -->
-<!-- TESTIMONIAL / QUOTE                     -->
-<!-- ═══════════════════════════════════════ -->
-<section class="px-6 md:px-10 py-20 section-reveal">
-  <div class="max-w-[1000px] mx-auto text-center">
-    <i data-lucide="quote" class="w-10 h-10 text-zinc-200 mx-auto mb-8"></i>
-    <blockquote class="font-heading text-[24px] sm:text-[30px] lg:text-[36px] leading-snug text-brand-dark mb-6 italic">
-      "Elena's work transcends mere aesthetics — she creates visual systems that carry 
-      meaning, emotion, and lasting impact."
-    </blockquote>
-    <div class="flex items-center justify-center gap-3">
-      <img src="https://picsum.photos/seed/client-avatar/80/80.jpg" alt="Client" class="w-10 h-10 rounded-full object-cover">
-      <div class="text-left">
-        <p class="text-sm font-medium text-brand-dark">Marcus Behrens</p>
-        <p class="text-xs text-brand-muted">Creative Director, Studio Haiku</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════ -->
-<!-- CONTACT SECTION                         -->
-<!-- ═══════════════════════════════════════ -->
-<section id="contact" class="px-6 md:px-10 py-24 md:py-32 section-reveal">
-  <div class="max-w-[1400px] mx-auto">
-    <div class="bg-brand-dark rounded-2xl md:rounded-3xl overflow-hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-2">
-        
-        <!-- Left: CTA -->
-        <div class="p-8 sm:p-12 md:p-16 lg:p-20 flex flex-col justify-center">
-          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400 mb-4">Let's Collaborate</p>
-          <h2 class="font-heading text-[36px] sm:text-[44px] lg:text-[56px] font-400 leading-[1.05] tracking-tight text-white mb-6">
-            Have a project<br>in mind?
-          </h2>
-          <p class="text-[15px] leading-relaxed text-zinc-400 max-w-md mb-10">
-            I'm always open to discussing new projects, creative ideas, or opportunities to be 
-            part of your vision. Let's create something extraordinary together.
-          </p>
-          
-          <div class="flex flex-col sm:flex-row gap-4">
-            <a href="mailto:hello@elenavoss.com" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-brand-dark text-sm font-medium rounded-full hover:bg-zinc-100 transition-colors">
-              <i data-lucide="mail" class="w-4 h-4"></i>
-              hello@elenavoss.com
-            </a>
-            <a href="#" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-zinc-600 text-white text-sm font-medium rounded-full hover:border-zinc-400 transition-colors">
-              <i data-lucide="download" class="w-4 h-4"></i>
-              Download CV
-            </a>
-          </div>
         </div>
 
-        <!-- Right: Contact Form -->
-        <div class="p-8 sm:p-12 md:p-16 lg:p-20 bg-white/5">
-          <form id="contact-form" class="space-y-5">
-            <div>
-              <label class="block text-[10px] uppercase tracking-[0.2em] font-semibold text-zinc-400 mb-2">Name</label>
-              <input type="text" placeholder="Your name" class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white/30 transition-colors">
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu lg:hidden bg-white border-t border-surface-200">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
+                <a href="#home" class="px-4 py-2.5 text-sm font-medium text-navy-700 hover:text-brand-600 hover:bg-surface-100 rounded-lg transition-colors mobile-link">Home</a>
+                <a href="#services" class="px-4 py-2.5 text-sm font-medium text-navy-700 hover:text-brand-600 hover:bg-surface-100 rounded-lg transition-colors mobile-link">Services</a>
+                <a href="#portal" class="px-4 py-2.5 text-sm font-medium text-navy-700 hover:text-brand-600 hover:bg-surface-100 rounded-lg transition-colors mobile-link">Products</a>
+                <a href="#about" class="px-4 py-2.5 text-sm font-medium text-navy-700 hover:text-brand-600 hover:bg-surface-100 rounded-lg transition-colors mobile-link">About</a>
+                <a href="#contact" class="px-4 py-2.5 text-sm font-medium text-navy-700 hover:text-brand-600 hover:bg-surface-100 rounded-lg transition-colors mobile-link">Contact</a>
+                <div class="pt-2 border-t border-surface-200 mt-1">
+                    <a href="#portal" class="flex items-center justify-center gap-2 px-5 py-2.5 bg-brand-600 text-white text-sm font-semibold rounded-lg mobile-link">
+                        <i data-lucide="log-in" class="w-4 h-4"></i>
+                        Client Login
+                    </a>
+                </div>
             </div>
-            <div>
-              <label class="block text-[10px] uppercase tracking-[0.2em] font-semibold text-zinc-400 mb-2">Email</label>
-              <input type="email" placeholder="your@email.com" class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white/30 transition-colors">
-            </div>
-            <div>
-              <label class="block text-[10px] uppercase tracking-[0.2em] font-semibold text-zinc-400 mb-2">Project Type</label>
-              <select class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-zinc-400 focus:outline-none focus:border-white/30 transition-colors appearance-none cursor-pointer">
-                <option>Brand Identity</option>
-                <option>Editorial Design</option>
-                <option>Visual Art / Illustration</option>
-                <option>Art Direction</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-[10px] uppercase tracking-[0.2em] font-semibold text-zinc-400 mb-2">Message</label>
-              <textarea rows="4" placeholder="Tell me about your project..." class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white/30 transition-colors resize-none"></textarea>
-            </div>
-            <button type="submit" class="w-full py-3.5 bg-white text-brand-dark text-sm font-medium rounded-xl hover:bg-zinc-100 transition-colors flex items-center justify-center gap-2">
-              Send Message
-              <i data-lucide="send" class="w-4 h-4"></i>
-            </button>
-            <div id="form-success" class="hidden text-center py-3 px-4 bg-emerald-500/10 rounded-xl border border-emerald-500/20">
-              <p class="text-sm text-emerald-400 flex items-center justify-center gap-2">
-                <i data-lucide="check-circle" class="w-4 h-4"></i>
-                Message sent! I'll get back to you soon.
-              </p>
-            </div>
-          </form>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </header>
 
 
-<!-- ═══════════════════════════════════════ -->
-<!-- FOOTER                                  -->
-<!-- ═══════════════════════════════════════ -->
-<footer class="px-6 md:px-10 py-12 md:py-16 border-t border-zinc-200">
-  <div class="max-w-[1400px] mx-auto">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-      
-      <div>
-        <a href="#hero" class="font-heading text-2xl text-brand-dark">Elena Voss</a>
-        <p class="text-xs text-brand-muted mt-1">Designer & Visual Artist — Amsterdam</p>
-      </div>
+    <!-- ======================== HERO ======================== -->
+    <section id="home" class="relative pt-16 overflow-hidden">
+        <!-- Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-surface-50 via-white to-brand-50/40 hero-grid"></div>
+        <div class="absolute top-20 right-0 w-[600px] h-[600px] bg-brand-100/30 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-navy-50/50 rounded-full blur-[100px]"></div>
 
-      <div class="flex items-center gap-6">
-        <a href="#" class="text-brand-muted hover:text-brand-dark transition-colors" aria-label="Instagram">
-          <i data-lucide="instagram" class="w-5 h-5"></i>
-        </a>
-        <a href="#" class="text-brand-muted hover:text-brand-dark transition-colors" aria-label="Dribbble">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"/><path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"/><path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"/></svg>
-        </a>
-        <a href="#" class="text-brand-muted hover:text-brand-dark transition-colors" aria-label="Behance">
-          <i data-lucide="figma" class="w-5 h-5"></i>
-        </a>
-        <a href="#" class="text-brand-muted hover:text-brand-dark transition-colors" aria-label="LinkedIn">
-          <i data-lucide="linkedin" class="w-5 h-5"></i>
-        </a>
-        <a href="#" class="text-brand-muted hover:text-brand-dark transition-colors" aria-label="Twitter / X">
-          <i data-lucide="twitter" class="w-5 h-5"></i>
-        </a>
-      </div>
-    </div>
+        <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32 lg:py-40">
+            <div class="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+                <!-- Left: Content -->
+                <div>
+                    <div class="reveal inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-50 border border-brand-200 rounded-full mb-6">
+                        <span class="w-1.5 h-1.5 bg-brand-500 rounded-full pulse-dot"></span>
+                        <span class="text-brand-700 text-xs font-semibold tracking-wide uppercase">Trusted by 500+ Clinics Nationwide</span>
+                    </div>
 
-    <div class="mt-8 pt-6 border-t border-zinc-100 flex flex-col sm:flex-row justify-between items-center gap-4">
-      <p class="text-xs text-brand-muted">© 2024 Elena Voss. All rights reserved.</p>
-      <div class="flex gap-6">
-        <a href="#" class="text-xs text-brand-muted hover:text-brand-dark transition-colors">Privacy</a>
-        <a href="#" class="text-xs text-brand-muted hover:text-brand-dark transition-colors">Terms</a>
-        <a href="#" class="text-xs text-brand-muted hover:text-brand-dark transition-colors">Colophon</a>
-      </div>
-    </div>
-  </div>
-</footer>
+                    <h1 class="reveal reveal-delay-1 text-4xl md:text-5xl lg:text-[56px] font-bold text-navy-900 leading-[1.08] tracking-tight">
+                        Streamline Your
+                        <span class="bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent"> Dispensing</span>
+                        Workflow
+                    </h1>
+
+                    <p class="reveal reveal-delay-2 mt-6 text-lg md:text-xl text-navy-500 leading-relaxed max-w-xl">
+                        Reliable pharmaceutical repackaging and physician dispensing support — helping clinics improve patient care, stay compliant, and operate efficiently.
+                    </p>
+					
+					<p class="mt-4 text-sm md:text-base text-brand-600 font-semibold">
+						Right Medication. Right Place. Right Time. Right Cost.
+					</p>
+
+                    <div class="reveal reveal-delay-3 mt-10 flex flex-col sm:flex-row gap-3.5">
+                        <a href="#portal" class="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-brand-600/20 hover:shadow-xl hover:shadow-brand-600/25 hover:-translate-y-0.5">
+                            <i data-lucide="log-in" class="w-[18px] h-[18px]"></i>
+                            Client Login
+                        </a>
+                        <a href="#contact" class="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-white hover:bg-surface-50 text-navy-800 font-semibold rounded-xl border border-surface-300 hover:border-surface-400 transition-all duration-200 hover:-translate-y-0.5">
+                            Request Information
+                            <i data-lucide="arrow-right" class="w-[18px] h-[18px]"></i>
+                        </a>
+                    </div>
+
+                    <!-- Micro stats -->
+                    <div class="reveal reveal-delay-4 mt-12 flex items-center gap-8 pt-8 border-t border-surface-200">
+                        <div>
+                            <div class="text-2xl font-bold text-navy-900">500+</div>
+                            <div class="text-xs text-navy-400 font-medium mt-0.5">Active Clinics</div>
+                        </div>
+                        <div class="w-px h-10 bg-surface-200"></div>
+                        <div>
+                            <div class="text-2xl font-bold text-navy-900">99.8%</div>
+                            <div class="text-xs text-navy-400 font-medium mt-0.5">Order Accuracy</div>
+                        </div>
+                        <div class="w-px h-10 bg-surface-200"></div>
+                        <div>
+                            <div class="text-2xl font-bold text-navy-900">50</div>
+                            <div class="text-xs text-navy-400 font-medium mt-0.5">State Licensed</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Visual -->
+                <div class="reveal reveal-delay-2 relative hidden lg:block">
+                    <div class="relative">
+                        <!-- Main image card -->
+                        <div class="rounded-2xl overflow-hidden shadow-2xl shadow-navy-900/8 border border-surface-200">
+                            <img src="hero-page.png" alt="Pharmaceutical lab environment" class="w-full h-[420px] object-cover">
+                        </div>
+                        <!-- Floating card: compliance -->
+                        <div class="absolute -bottom-5 -left-6 bg-white rounded-xl shadow-xl shadow-navy-900/6 border border-surface-200 p-4 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="shield-check" class="w-5 h-5 text-green-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-navy-900">FDA & DEA</div>
+                                <div class="text-xs text-navy-400">Fully Compliant</div>
+                            </div>
+                        </div>
+                        <!-- Floating card: delivery -->
+                        <div class="absolute -top-4 -right-4 bg-white rounded-xl shadow-xl shadow-navy-900/6 border border-surface-200 p-4 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="truck" class="w-5 h-5 text-brand-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-navy-900">Next-Day</div>
+                                <div class="text-xs text-navy-400">Shipping Available</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
-<!-- ═══════════════════════════════════════ -->
-<!-- SCRIPTS                                 -->
-<!-- ═══════════════════════════════════════ -->
-<script>
-// Initialize Lucide Icons
-lucide.createIcons();
+    <!-- ======================== SERVICES ======================== -->
+    <section id="services" class="relative py-24 md:py-32 bg-surface-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Section header -->
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <div class="reveal inline-flex items-center gap-2 px-3.5 py-1.5 bg-white border border-surface-300 rounded-full mb-5">
+                    <span class="text-navy-500 text-xs font-semibold tracking-wide uppercase">What We Do</span>
+                </div>
+                <h2 class="reveal reveal-delay-1 text-3xl md:text-4xl font-bold text-navy-900 tracking-tight">
+                    Comprehensive Dispensing Support
+                </h2>
+                <p class="reveal reveal-delay-2 mt-4 text-navy-500 text-lg leading-relaxed">
+                    Everything your clinic needs to dispense medications safely, efficiently, and in full compliance with state and federal regulations.
+                </p>
+            </div>
 
-// ——————————————————————————————
-// Mobile Menu Toggle
-// ——————————————————————————————
-const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
-let menuOpen = false;
+            <!-- Service cards -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <!-- Card 1 -->
+                <div class="reveal reveal-delay-1 group bg-white rounded-2xl p-7 border border-surface-200 hover:border-brand-200 hover:shadow-lg hover:shadow-brand-600/5 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-brand-50 group-hover:bg-brand-100 flex items-center justify-center transition-colors duration-300">
+                        <i data-lucide="pill" class="w-6 h-6 text-brand-600"></i>
+                    </div>
+                    <h3 class="mt-5 text-lg font-semibold text-navy-900">Physician Dispensing</h3>
+                    <p class="mt-2.5 text-sm text-navy-500 leading-relaxed">
+                        Pre-packaged, labeled medications ready for point-of-care dispensing. Improve patient outcomes and practice revenue.
+                    </p>
+                </div>
+                <!-- Card 2 -->
+                <div class="reveal reveal-delay-2 group bg-white rounded-2xl p-7 border border-surface-200 hover:border-brand-200 hover:shadow-lg hover:shadow-brand-600/5 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-brand-50 group-hover:bg-brand-100 flex items-center justify-center transition-colors duration-300">
+                        <i data-lucide="package" class="w-6 h-6 text-brand-600"></i>
+                    </div>
+                    <h3 class="mt-5 text-lg font-semibold text-navy-900">Repackaging Services</h3>
+                    <p class="mt-2.5 text-sm text-navy-500 leading-relaxed">
+                        Unit-dose and multi-dose repackaging in our FDA-registered facility with full lot tracking and chain of custody.
+                    </p>
+                </div>
+                <!-- Card 3 -->
+                <div class="reveal reveal-delay-3 group bg-white rounded-2xl p-7 border border-surface-200 hover:border-brand-200 hover:shadow-lg hover:shadow-brand-600/5 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-green-50 group-hover:bg-green-100 flex items-center justify-center transition-colors duration-300">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-green-600"></i>
+                    </div>
+                    <h3 class="mt-5 text-lg font-semibold text-navy-900">Compliance Support</h3>
+                    <p class="mt-2.5 text-sm text-navy-500 leading-relaxed">
+                        Stay current with FDA, DEA, and state board requirements. We handle the regulatory complexity so you don't have to.
+                    </p>
+                </div>
+                <!-- Card 4 -->
+                <div class="reveal reveal-delay-4 group bg-white rounded-2xl p-7 border border-surface-200 hover:border-brand-200 hover:shadow-lg hover:shadow-brand-600/5 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-brand-50 group-hover:bg-brand-100 flex items-center justify-center transition-colors duration-300">
+                        <i data-lucide="bar-chart-3" class="w-6 h-6 text-brand-600"></i>
+                    </div>
+                    <h3 class="mt-5 text-lg font-semibold text-navy-900">Inventory & Ordering</h3>
+                    <p class="mt-2.5 text-sm text-navy-500 leading-relaxed">
+                        Online portal with real-time inventory tracking, one-click reordering, and automated low-stock alerts.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-mobileMenuBtn.addEventListener('click', () => {
-  menuOpen = !menuOpen;
-  if (menuOpen) {
-    mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
-  } else {
-    mobileMenu.style.maxHeight = '0';
-  }
-});
 
-// Close mobile menu on link click
-document.querySelectorAll('.mobile-link').forEach(link => {
-  link.addEventListener('click', () => {
-    menuOpen = false;
-    mobileMenu.style.maxHeight = '0';
-  });
-});
+    <!-- ======================== CUSTOMER PORTAL ======================== -->
+    <section id="portal" class="relative py-24 md:py-32 bg-white overflow-hidden">
+        <!-- Subtle bg accent -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-brand-50/40 rounded-full blur-[140px] pointer-events-none"></div>
 
-// ——————————————————————————————
-// Navbar scroll effect
-// ——————————————————————————————
-const navbar = document.getElementById('navbar');
-let lastScroll = 0;
+        <div class="relative max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+                <!-- Left: Dashboard Mockup -->
+                <div class="reveal order-2 lg:order-1">
+                    <div class="bg-navy-900 rounded-2xl shadow-2xl shadow-navy-900/10 border border-navy-700 overflow-hidden">
+                        <!-- Title bar -->
+                        <div class="flex items-center gap-2 px-4 py-3 bg-navy-800/80 border-b border-navy-700">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-400/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-400/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-400/80"></div>
+                            </div>
+                            <div class="flex-1 text-center">
+                                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-navy-700/50 rounded-md">
+                                    <i data-lucide="lock" class="w-3 h-3 text-brand-400"></i>
+                                    <span class="text-[11px] text-navy-300 font-medium">portal.brppharma.com</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Dashboard body -->
+                        <div class="flex min-h-[340px]">
+                            <!-- Sidebar -->
+                            <div class="dash-sidebar w-[140px] flex-shrink-0 p-3 hidden sm:flex flex-col gap-1">
+                                <div class="flex items-center gap-2 px-2.5 py-2 bg-white/10 rounded-lg">
+                                    <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-white/90"></i>
+                                    <span class="text-[11px] text-white/90 font-medium">Dashboard</span>
+                                </div>
+                                <div class="flex items-center gap-2 px-2.5 py-2 rounded-lg hover:bg-white/5 transition-colors cursor-pointer">
+                                    <i data-lucide="shopping-bag" class="w-3.5 h-3.5 text-white/40"></i>
+                                    <span class="text-[11px] text-white/40 font-medium">Orders</span>
+                                </div>
+                                <div class="flex items-center gap-2 px-2.5 py-2 rounded-lg hover:bg-white/5 transition-colors cursor-pointer">
+                                    <i data-lucide="package" class="w-3.5 h-3.5 text-white/40"></i>
+                                    <span class="text-[11px] text-white/40 font-medium">Inventory</span>
+                                </div>
+                                <div class="flex items-center gap-2 px-2.5 py-2 rounded-lg hover:bg-white/5 transition-colors cursor-pointer">
+                                    <i data-lucide="repeat" class="w-3.5 h-3.5 text-white/40"></i>
+                                    <span class="text-[11px] text-white/40 font-medium">Reorder</span>
+                                </div>
+                                <div class="flex items-center gap-2 px-2.5 py-2 rounded-lg hover:bg-white/5 transition-colors cursor-pointer">
+                                    <i data-lucide="file-text" class="w-3.5 h-3.5 text-white/40"></i>
+                                    <span class="text-[11px] text-white/40 font-medium">Reports</span>
+                                </div>
+                                <div class="mt-auto flex items-center gap-2 px-2.5 py-2 rounded-lg">
+                                    <i data-lucide="settings" class="w-3.5 h-3.5 text-white/30"></i>
+                                    <span class="text-[11px] text-white/30 font-medium">Settings</span>
+                                </div>
+                            </div>
+                            <!-- Main content -->
+                            <div class="flex-1 p-4 md:p-5 bg-[#FAFBFC]">
+                                <!-- Top bar -->
+                                <div class="flex items-center justify-between mb-4">
+                                    <div>
+                                        <div class="text-xs text-navy-400 font-medium">Good morning,</div>
+                                        <div class="text-sm font-semibold text-navy-800">Dr. Martinez</div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-7 h-7 rounded-lg bg-white border border-surface-200 flex items-center justify-center">
+                                            <i data-lucide="bell" class="w-3.5 h-3.5 text-navy-400"></i>
+                                        </div>
+                                        <div class="w-7 h-7 rounded-full bg-brand-100 flex items-center justify-center">
+                                            <span class="text-[10px] font-bold text-brand-700">DM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Stat cards -->
+                                <div class="grid grid-cols-3 gap-2.5 mb-4">
+                                    <div class="bg-white rounded-lg p-3 border border-surface-200">
+                                        <div class="text-[10px] text-navy-400 font-medium uppercase tracking-wider">Active Orders</div>
+                                        <div class="text-xl font-bold text-navy-900 mt-1">12</div>
+                                        <div class="text-[10px] text-green-600 font-medium mt-0.5">↑ 3 new</div>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-3 border border-surface-200">
+                                        <div class="text-[10px] text-navy-400 font-medium uppercase tracking-wider">Low Stock</div>
+                                        <div class="text-xl font-bold text-amber-600 mt-1">4</div>
+                                        <div class="text-[10px] text-navy-400 font-medium mt-0.5">Needs reorder</div>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-3 border border-surface-200">
+                                        <div class="text-[10px] text-navy-400 font-medium uppercase tracking-wider">Dispensed</div>
+                                        <div class="text-xl font-bold text-navy-900 mt-1">284</div>
+                                        <div class="text-[10px] text-green-600 font-medium mt-0.5">This month</div>
+                                    </div>
+                                </div>
+                                <!-- Chart placeholder -->
+                                <div class="bg-white rounded-lg p-3 border border-surface-200">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-[11px] font-semibold text-navy-700">Order Volume</span>
+                                        <span class="text-[10px] text-navy-400 font-medium">Last 7 days</span>
+                                    </div>
+                                    <div class="flex items-end gap-2 h-16">
+                                        <div class="flex-1 bg-brand-100 rounded-sm dash-bar" style="height:45%; animation-delay:0s"></div>
+                                        <div class="flex-1 bg-brand-200 rounded-sm dash-bar" style="height:65%; animation-delay:0.1s"></div>
+                                        <div class="flex-1 bg-brand-300 rounded-sm dash-bar" style="height:40%; animation-delay:0.2s"></div>
+                                        <div class="flex-1 bg-brand-400 rounded-sm dash-bar" style="height:80%; animation-delay:0.3s"></div>
+                                        <div class="flex-1 bg-brand-500 rounded-sm dash-bar" style="height:60%; animation-delay:0.4s"></div>
+                                        <div class="flex-1 bg-brand-600 rounded-sm dash-bar" style="height:90%; animation-delay:0.5s"></div>
+                                        <div class="flex-1 bg-brand-500 rounded-sm dash-bar" style="height:75%; animation-delay:0.6s"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-window.addEventListener('scroll', () => {
-  const currentScroll = window.pageYOffset;
-  if (currentScroll > 80) {
-    navbar.style.boxShadow = '0 1px 20px rgba(0,0,0,0.06)';
-  } else {
-    navbar.style.boxShadow = 'none';
-  }
-  lastScroll = currentScroll;
-});
+                <!-- Right: Content -->
+                <div class="order-1 lg:order-2">
+                    <div class="reveal inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-50 border border-brand-200 rounded-full mb-5">
+                        <span class="text-brand-700 text-xs font-semibold tracking-wide uppercase">Client Portal</span>
+                    </div>
+                    <h2 class="reveal reveal-delay-1 text-3xl md:text-4xl font-bold text-navy-900 tracking-tight">
+                        Your Dispensing Operations, One Dashboard
+                    </h2>
+                    <p class="reveal reveal-delay-2 mt-5 text-navy-500 text-lg leading-relaxed">
+                        Our secure online portal gives your clinic complete visibility and control over your dispensing program — no phone calls, no faxes, no guesswork.
+                    </p>
 
-// ——————————————————————————————
-// Portfolio Filter
-// ——————————————————————————————
-const filterBtns = document.querySelectorAll('.filter-btn');
-const artworkCards = document.querySelectorAll('.artwork-card');
+                    <div class="reveal reveal-delay-3 mt-8 space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-brand-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i data-lucide="eye" class="w-4 h-4 text-brand-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-navy-900">View Orders in Real Time</div>
+                                <div class="text-sm text-navy-500 mt-0.5">Track every order from placement to delivery with full status history.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-brand-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i data-lucide="repeat" class="w-4 h-4 text-brand-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-navy-900">One-Click Reordering</div>
+                                <div class="text-sm text-navy-500 mt-0.5">Reorder your most-used medications instantly from your order history.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-brand-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i data-lucide="box" class="w-4 h-4 text-brand-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-navy-900">Inventory Tracking</div>
+                                <div class="text-sm text-navy-500 mt-0.5">Know exactly what's in stock, what's low, and what needs to be ordered.</div>
+                            </div>
+                        </div>
+                    </div>
 
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    // Update active button
-    filterBtns.forEach(b => {
-      b.classList.remove('bg-brand-dark', 'text-white', 'border-brand-dark', 'active');
-      b.classList.add('border-zinc-300', 'text-brand-muted');
-    });
-    btn.classList.add('bg-brand-dark', 'text-white', 'border-brand-dark', 'active');
-    btn.classList.remove('border-zinc-300', 'text-brand-muted');
+                    <div class="reveal reveal-delay-4 mt-10">
+                        <a href="#" class="inline-flex items-center gap-2.5 px-7 py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-brand-600/20 hover:shadow-xl hover:shadow-brand-600/25 hover:-translate-y-0.5">
+                            <i data-lucide="log-in" class="w-[18px] h-[18px]"></i>
+                            Login to Portal
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    const filter = btn.dataset.filter;
 
-    artworkCards.forEach(card => {
-      const category = card.dataset.category;
-      if (filter === 'all' || category === filter) {
-        card.style.display = '';
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(15px)';
-        requestAnimationFrame(() => {
-          card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
+    <!-- ======================== TRUST & COMPLIANCE ======================== -->
+    <section id="about" class="relative py-24 md:py-32 bg-navy-900 overflow-hidden">
+        <!-- Decorative -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-900/20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-navy-800/50 rounded-full blur-[100px]"></div>
+
+        <div class="relative max-w-7xl mx-auto px-6">
+            <!-- Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <div class="reveal inline-flex items-center gap-2 px-3.5 py-1.5 bg-white/5 border border-white/10 rounded-full mb-5">
+                    <i data-lucide="shield" class="w-3.5 h-3.5 text-brand-400"></i>
+                    <span class="text-brand-300 text-xs font-semibold tracking-wide uppercase">Trust & Compliance</span>
+                </div>
+                <h2 class="reveal reveal-delay-1 text-3xl md:text-4xl font-bold text-white tracking-tight">
+                    Built on Compliance, Backed by Accuracy
+                </h2>
+                <p class="reveal reveal-delay-2 mt-4 text-navy-300 text-lg leading-relaxed">
+                    Every medication we handle is processed under strict regulatory oversight with complete traceability from source to clinic.
+                </p>
+            </div>
+
+            <!-- Compliance badges grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Badge 1 -->
+                <div class="reveal reveal-delay-1 badge-shine bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-6 text-center hover:bg-white/[0.07] transition-colors duration-300">
+                    <div class="w-14 h-14 mx-auto rounded-2xl bg-brand-500/10 flex items-center justify-center mb-4">
+                        <i data-lucide="badge-check" class="w-7 h-7 text-brand-400"></i>
+                    </div>
+                    <div class="text-white font-semibold text-sm">FDA Registered</div>
+                    <div class="text-navy-400 text-xs mt-1.5 leading-relaxed">Registered repackaging facility meeting all federal requirements</div>
+                </div>
+                <!-- Badge 2 -->
+                <div class="reveal reveal-delay-2 badge-shine bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-6 text-center hover:bg-white/[0.07] transition-colors duration-300">
+                    <div class="w-14 h-14 mx-auto rounded-2xl bg-green-500/10 flex items-center justify-center mb-4">
+                        <i data-lucide="file-check" class="w-7 h-7 text-green-400"></i>
+                    </div>
+                    <div class="text-white font-semibold text-sm">DEA Licensed</div>
+                    <div class="text-navy-400 text-xs mt-1.5 leading-relaxed">Fully authorized to handle controlled substances</div>
+                </div>
+                <!-- Badge 3 -->
+                <div class="reveal reveal-delay-3 badge-shine bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-6 text-center hover:bg-white/[0.07] transition-colors duration-300">
+                    <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-500/10 flex items-center justify-center mb-4">
+                        <i data-lucide="map-pin" class="w-7 h-7 text-blue-400"></i>
+                    </div>
+                    <div class="text-white font-semibold text-sm">Nationwide Licensing</div>
+                    <div class="text-navy-400 text-xs mt-1.5 leading-relaxed">Licensed to ship to clinics across all 50 states</div>
+                </div>
+                <!-- Badge 4 -->
+                <div class="reveal reveal-delay-4 badge-shine bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-6 text-center hover:bg-white/[0.07] transition-colors duration-300">
+                    <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-500/10 flex items-center justify-center mb-4">
+                        <i data-lucide="target" class="w-7 h-7 text-amber-400"></i>
+                    </div>
+                    <div class="text-white font-semibold text-sm">99.8% Accuracy</div>
+                    <div class="text-navy-400 text-xs mt-1.5 leading-relaxed">Industry-leading order accuracy with zero-tolerance quality checks</div>
+                </div>
+            </div>
+
+            <!-- Bottom statement -->
+            <div class="reveal mt-14 text-center">
+                <p class="text-navy-400 text-sm leading-relaxed max-w-2xl mx-auto">
+                    Our facility undergoes regular inspections and audits. Every package is barcoded, lot-tracked, and verified before it leaves our doors. When you work with BRP, compliance isn't a concern — it's a guarantee.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ======================== WHO WE SERVE ======================== -->
+    <section class="relative py-24 md:py-32 bg-surface-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <div class="reveal inline-flex items-center gap-2 px-3.5 py-1.5 bg-white border border-surface-300 rounded-full mb-5">
+                    <span class="text-navy-500 text-xs font-semibold tracking-wide uppercase">Who We Serve</span>
+                </div>
+                <h2 class="reveal reveal-delay-1 text-3xl md:text-4xl font-bold text-navy-900 tracking-tight">
+                    Scalable Solutions for Every Practice Size
+                </h2>
+                <p class="reveal reveal-delay-2 mt-4 text-navy-500 text-lg leading-relaxed">
+                    Whether you're a single-provider clinic or a large institutional network, we tailor our services to fit your workflow.
+                </p>
+            </div>
+
+            <!-- Cards -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Small clinics -->
+                <div class="reveal reveal-delay-1 group relative bg-white rounded-2xl overflow-hidden border border-surface-200 hover:shadow-xl hover:shadow-navy-900/5 transition-all duration-300 hover:-translate-y-1">
+                    <div class="h-48 overflow-hidden">
+                        <img src="independent-practices.png" alt="Small medical clinic" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-brand-50 rounded-md mb-3">
+                            <i data-lucide="building-2" class="w-3.5 h-3.5 text-brand-600"></i>
+                            <span class="text-[11px] font-semibold text-brand-700 uppercase tracking-wide">Small Clinics</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-navy-900">Independent Practices</h3>
+                        <p class="mt-2 text-sm text-navy-500 leading-relaxed">
+                            Single-location clinics and small group practices looking to add dispensing as a patient convenience and revenue stream.
+                        </p>
+                    </div>
+                </div>
+                <!-- Large practices -->
+                <div class="reveal reveal-delay-2 group relative bg-white rounded-2xl overflow-hidden border border-surface-200 hover:shadow-xl hover:shadow-navy-900/5 transition-all duration-300 hover:-translate-y-1">
+                    <div class="h-48 overflow-hidden">
+                        <img src="large-practices.png" alt="Large medical practice" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-brand-50 rounded-md mb-3">
+                            <i data-lucide="building" class="w-3.5 h-3.5 text-brand-600"></i>
+                            <span class="text-[11px] font-semibold text-brand-700 uppercase tracking-wide">Large Practices</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-navy-900">Multi-Provider Groups</h3>
+                        <p class="mt-2 text-sm text-navy-500 leading-relaxed">
+                            Larger practices with multiple providers and locations needing centralized ordering, reporting, and inventory management.
+                        </p>
+                    </div>
+                </div>
+                <!-- Institutional -->
+                <div class="reveal reveal-delay-3 group relative bg-white rounded-2xl overflow-hidden border border-surface-200 hover:shadow-xl hover:shadow-navy-900/5 transition-all duration-300 hover:-translate-y-1">
+                    <div class="h-48 overflow-hidden">
+                        <img src="institution.png" alt="Institutional healthcare facility" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-navy-50 rounded-md mb-3">
+                            <i data-lucide="landmark" class="w-3.5 h-3.5 text-navy-600"></i>
+                            <span class="text-[11px] font-semibold text-navy-700 uppercase tracking-wide">Institutional</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-navy-900">Institutional Partners</h3>
+                        <p class="mt-2 text-sm text-navy-500 leading-relaxed">
+                            VA facilities, hospital systems, and large-scale buyers requiring GPO-level pricing, volume agreements, and dedicated support.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ======================== PROCESS SECTION ======================== -->
+    <section class="relative py-24 md:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <div class="reveal inline-flex items-center gap-2 px-3.5 py-1.5 bg-white border border-surface-300 rounded-full mb-5">
+                    <span class="text-navy-500 text-xs font-semibold tracking-wide uppercase">How It Works</span>
+                </div>
+                <h2 class="reveal reveal-delay-1 text-3xl md:text-4xl font-bold text-navy-900 tracking-tight">
+                    Getting Started Is Simple
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-6 relative">
+                <!-- Connector line (desktop) -->
+                <div class="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-surface-300"></div>
+
+                <!-- Step 1 -->
+                <div class="reveal reveal-delay-1 text-center relative">
+                    <div class="w-20 h-20 mx-auto rounded-2xl bg-brand-50 border-2 border-brand-200 flex items-center justify-center mb-5 relative z-10 bg-white">
+                        <span class="text-2xl font-bold text-brand-600">1</span>
+                    </div>
+                    <h3 class="text-base font-semibold text-navy-900">Contact Us</h3>
+                    <p class="mt-2 text-sm text-navy-500 leading-relaxed">Fill out our inquiry form or call us directly to discuss your clinic's needs.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="reveal reveal-delay-2 text-center relative">
+                    <div class="w-20 h-20 mx-auto rounded-2xl bg-brand-50 border-2 border-brand-200 flex items-center justify-center mb-5 relative z-10 bg-white">
+                        <span class="text-2xl font-bold text-brand-600">2</span>
+                    </div>
+                    <h3 class="text-base font-semibold text-navy-900">Setup & Onboard</h3>
+                    <p class="mt-2 text-sm text-navy-500 leading-relaxed">We handle licensing verification, formulary setup, and portal credentials.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="reveal reveal-delay-3 text-center relative">
+                    <div class="w-20 h-20 mx-auto rounded-2xl bg-brand-50 border-2 border-brand-200 flex items-center justify-center mb-5 relative z-10 bg-white">
+                        <span class="text-2xl font-bold text-brand-600">3</span>
+                    </div>
+                    <h3 class="text-base font-semibold text-navy-900">Order & Receive</h3>
+                    <p class="mt-2 text-sm text-navy-500 leading-relaxed">Place orders through the portal and receive pre-packaged medications at your door.</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="reveal reveal-delay-4 text-center relative">
+                    <div class="w-20 h-20 mx-auto rounded-2xl bg-green-50 border-2 border-green-200 flex items-center justify-center mb-5 relative z-10 bg-white">
+                        <i data-lucide="check" class="w-7 h-7 text-green-600"></i>
+                    </div>
+                    <h3 class="text-base font-semibold text-navy-900">Dispense with Confidence</h3>
+                    <p class="mt-2 text-sm text-navy-500 leading-relaxed">Begin dispensing to patients knowing everything is compliant, labeled, and tracked.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ======================== CONTACT / LEAD FORM ======================== -->
+    <section id="contact" class="relative py-24 md:py-32 bg-surface-50 overflow-hidden">
+        <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-brand-50/50 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="relative max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 lg:gap-20">
+                <!-- Left: Info -->
+                <div>
+                    <div class="reveal inline-flex items-center gap-2 px-3.5 py-1.5 bg-white border border-surface-300 rounded-full mb-5">
+                        <span class="text-navy-500 text-xs font-semibold tracking-wide uppercase">Get Started</span>
+                    </div>
+                    <h2 class="reveal reveal-delay-1 text-3xl md:text-4xl font-bold text-navy-900 tracking-tight">
+                        Ready to Streamline Your Dispensing?
+                    </h2>
+                    <p class="reveal reveal-delay-2 mt-5 text-navy-500 text-lg leading-relaxed">
+                        Fill out the form and a member of our team will reach out within one business day. We'll walk you through setup, answer your questions, and get your clinic onboarded quickly.
+                    </p>
+
+                    <div class="reveal reveal-delay-3 mt-10 space-y-5">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-white border border-surface-200 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="phone" class="w-5 h-5 text-brand-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-navy-400 font-medium uppercase tracking-wide">Phone</div>
+                                <div class="text-sm font-semibold text-navy-900">(877) 885-0882</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-white border border-surface-200 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="mail" class="w-5 h-5 text-brand-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-navy-400 font-medium uppercase tracking-wide">Email</div>
+                                <div class="text-sm font-semibold text-navy-900">info@brppharma.com</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-white border border-surface-200 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="clock" class="w-5 h-5 text-brand-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-navy-400 font-medium uppercase tracking-wide">Business Hours</div>
+                                <div class="text-sm font-semibold text-navy-900">Mon – Fri, 8:00 AM – 6:00 PM EST</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Form -->
+                <div class="reveal reveal-delay-2">
+                    <form id="contactForm" class="bg-white rounded-2xl p-8 shadow-lg shadow-navy-900/5 border border-surface-200">
+                        <div class="grid sm:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-navy-700 mb-1.5 uppercase tracking-wide">First Name *</label>
+                                <input type="text" required class="form-input w-full px-4 py-3 rounded-xl border border-surface-300 text-sm text-navy-900 placeholder:text-navy-300 transition-all duration-200" placeholder="John">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-navy-700 mb-1.5 uppercase tracking-wide">Last Name *</label>
+                                <input type="text" required class="form-input w-full px-4 py-3 rounded-xl border border-surface-300 text-sm text-navy-900 placeholder:text-navy-300 transition-all duration-200" placeholder="Martinez">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-xs font-semibold text-navy-700 mb-1.5 uppercase tracking-wide">Clinic / Practice Name *</label>
+                            <input type="text" required class="form-input w-full px-4 py-3 rounded-xl border border-surface-300 text-sm text-navy-900 placeholder:text-navy-300 transition-all duration-200" placeholder="Martinez Family Medicine">
+                        </div>
+                        <div class="grid sm:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-navy-700 mb-1.5 uppercase tracking-wide">Email *</label>
+                                <input type="email" required class="form-input w-full px-4 py-3 rounded-xl border border-surface-300 text-sm text-navy-900 placeholder:text-navy-300 transition-all duration-200" placeholder="john@clinic.com">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-navy-700 mb-1.5 uppercase tracking-wide">Phone *</label>
+                                <input type="tel" required class="form-input w-full px-4 py-3 rounded-xl border border-surface-300 text-sm text-navy-900 placeholder:text-navy-300 transition-all duration-200" placeholder="(555) 123-4567">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-xs font-semibold text-navy-700 mb-1.5 uppercase tracking-wide">State *</label>
+                            <select required class="form-input w-full px-4 py-3 rounded-xl border border-surface-300 text-sm text-navy-900 transition-all duration-200 appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2364748b%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_1rem_center]">
+                                <option value="" disabled selected>Select your state</option>
+                                <option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option><option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option><option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option><option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option><option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option><option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option><option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option><option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option><option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option><option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option><option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option><option>Vermont</option><option>Virginia</option><option>Washington</option><option>West Virginia</option><option>Wisconsin</option><option>Wyoming</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-xs font-semibold text-navy-700 mb-1.5 uppercase tracking-wide">Message</label>
+                            <textarea rows="3" class="form-input w-full px-4 py-3 rounded-xl border border-surface-300 text-sm text-navy-900 placeholder:text-navy-300 transition-all duration-200 resize-none" placeholder="Tell us about your practice and what you're looking for..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-brand-600/20 hover:shadow-xl hover:shadow-brand-600/25">
+                            <span id="submitText">Submit Inquiry</span>
+                            <i data-lucide="arrow-right" class="w-[18px] h-[18px]" id="submitArrow"></i>
+                            <svg id="submitSpinner" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="opacity-25"></circle>
+                                <path d="M4 12a8 8 0 018-8" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="opacity-75"></path>
+                            </svg>
+                        </button>
+                        <!-- Success message -->
+                        <div id="formSuccess" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded-xl text-center">
+                            <div class="flex items-center justify-center gap-2">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+                                <span class="text-sm font-semibold text-green-800">Thank you! We'll be in touch within one business day.</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ======================== FOOTER ======================== -->
+    <footer class="bg-navy-900 border-t border-navy-800">
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                <!-- Brand -->
+                <div class="lg:col-span-1">
+                    <div class="flex items-center gap-2.5 mb-4">
+                        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center">
+                            <span class="text-white font-bold text-sm tracking-tight">BRP</span>
+                        </div>
+                        <div class="flex flex-col leading-none">
+                            <span class="text-white font-semibold text-[15px] tracking-tight">BRP Pharmaceuticals</span>
+                        </div>
+                    </div>
+                    <p class="text-navy-400 text-sm leading-relaxed">
+                        Pharmaceutical repackaging and physician dispensing solutions trusted by clinics nationwide.
+                    </p>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-xs font-semibold text-navy-300 uppercase tracking-wider mb-4">Company</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#about" class="text-sm text-navy-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#services" class="text-sm text-navy-400 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="#contact" class="text-sm text-navy-400 hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#" class="text-sm text-navy-400 hover:text-white transition-colors">Careers</a></li>
+                    </ul>
+                </div>
+                <!-- Resources -->
+                <div>
+                    <h4 class="text-xs font-semibold text-navy-300 uppercase tracking-wider mb-4">Resources</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#" class="text-sm text-navy-400 hover:text-white transition-colors">Client Portal</a></li>
+                        <li><a href="#" class="text-sm text-navy-400 hover:text-white transition-colors">Compliance Docs</a></li>
+                        <li><a href="#" class="text-sm text-navy-400 hover:text-white transition-colors">Formulary Guide</a></li>
+                        <li><a href="#" class="text-sm text-navy-400 hover:text-white transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-xs font-semibold text-navy-300 uppercase tracking-wider mb-4">Contact</h4>
+                    <ul class="space-y-2.5">
+                        <li class="text-sm text-navy-400">(800) 555-BRPA</li>
+                        <li class="text-sm text-navy-400">info@brppharma.com</li>
+                        <li class="text-sm text-navy-400">Mon–Fri, 8 AM – 6 PM EST</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Bottom bar -->
+            <div class="mt-12 pt-8 border-t border-navy-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-navy-500">© 2025 BRP Pharmaceuticals. All rights reserved.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-xs text-navy-500 hover:text-navy-300 transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-xs text-navy-500 hover:text-navy-300 transition-colors">Terms of Service</a>
+                    <a href="#" class="text-xs text-navy-500 hover:text-navy-300 transition-colors">HIPAA Compliance</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ======================== SCRIPTS ======================== -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // ---- Mobile menu toggle ----
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        let menuOpen = false;
+
+        mobileToggle.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            mobileMenu.classList.toggle('open', menuOpen);
+            menuIcon.setAttribute('data-lucide', menuOpen ? 'x' : 'menu');
+            lucide.createIcons();
         });
-      } else {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(10px)';
-        setTimeout(() => {
-          card.style.display = 'none';
-        }, 300);
-      }
-    });
-  });
-});
 
-// ——————————————————————————————
-// Artwork Modal
-// ——————————————————————————————
-const modal = document.getElementById('artwork-modal');
-const modalImg = document.getElementById('modal-img');
-const modalTitle = document.getElementById('modal-title');
-const modalDesc = document.getElementById('modal-desc');
-const modalTags = document.getElementById('modal-tags');
-const modalYear = document.getElementById('modal-year');
+        // Close mobile menu on link click
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menuOpen = false;
+                mobileMenu.classList.remove('open');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
 
-artworkCards.forEach(card => {
-  card.addEventListener('click', () => {
-    modalImg.src = card.dataset.img;
-    modalImg.alt = card.dataset.title;
-    modalTitle.textContent = card.dataset.title;
-    modalDesc.textContent = card.dataset.desc;
-    modalYear.textContent = card.dataset.year;
+        // ---- Scroll reveal ----
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-    // Tags
-    const tags = card.dataset.tags.split(',');
-    modalTags.innerHTML = '';
-    tags.forEach(tag => {
-      const span = document.createElement('span');
-      span.className = 'tag-pill cursor-pointer px-3 py-1.5 text-xs font-medium tracking-wide border border-zinc-300 rounded-full text-brand-dark bg-white';
-      span.textContent = tag.trim();
-      modalTags.appendChild(span);
-    });
+        revealElements.forEach(el => revealObserver.observe(el));
 
-    // Show modal
-    modal.classList.remove('modal-hidden');
-    modal.classList.add('modal-visible');
-    document.body.style.overflow = 'hidden';
+        // ---- Header scroll effect ----
+        const header = document.getElementById('header');
+        let lastScroll = 0;
 
-    // Re-init icons inside modal
-    setTimeout(() => lucide.createIcons(), 50);
-  });
-});
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.scrollY;
+            if (currentScroll > 10) {
+                header.classList.add('shadow-sm');
+            } else {
+                header.classList.remove('shadow-sm');
+            }
+            lastScroll = currentScroll;
+        }, { passive: true });
 
-function closeModal() {
-  modal.classList.remove('modal-visible');
-  modal.classList.add('modal-hidden');
-  document.body.style.overflow = '';
-}
+        // ---- Active nav link highlight ----
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('header nav a[href^="#"]');
 
-// Close modal on Escape
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeModal();
-});
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('text-brand-600', 'bg-brand-50');
+                        link.classList.add('text-navy-700');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('text-brand-600', 'bg-brand-50');
+                            link.classList.remove('text-navy-700');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.3, rootMargin: '-80px 0px -50% 0px' });
 
-// ——————————————————————————————
-// Contact Form
-// ——————————————————————————————
-document.getElementById('contact-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const successMsg = document.getElementById('form-success');
-  successMsg.classList.remove('hidden');
-  lucide.createIcons();
-  
-  // Reset form
-  e.target.querySelectorAll('input, textarea').forEach(el => el.value = '');
-  
-  // Hide success after 4 seconds
-  setTimeout(() => {
-    successMsg.classList.add('hidden');
-  }, 4000);
-});
+        sections.forEach(section => navObserver.observe(section));
 
-// ——————————————————————————————
-// Scroll Reveal
-// ——————————————————————————————
-const revealSections = document.querySelectorAll('.section-reveal');
+        // ---- Contact form handling ----
+        const contactForm = document.getElementById('contactForm');
+        const submitText = document.getElementById('submitText');
+        const submitArrow = document.getElementById('submitArrow');
+        const submitSpinner = document.getElementById('submitSpinner');
+        const formSuccess = document.getElementById('formSuccess');
 
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('revealed');
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, {
-  threshold: 0.1,
-  rootMargin: '0px 0px -60px 0px'
-});
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-revealSections.forEach(section => {
-  revealObserver.observe(section);
-});
+            // Show loading state
+            submitText.textContent = 'Submitting...';
+            submitArrow.classList.add('hidden');
+            submitSpinner.classList.remove('hidden');
 
-// ——————————————————————————————
-// Timeline line animation trigger
-// ——————————————————————————————
-const timelineLine = document.querySelector('.timeline-line');
-if (timelineLine) {
-  const timelineObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        timelineLine.style.animation = 'drawLine 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards';
-        timelineObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
-  timelineObserver.observe(timelineLine.parentElement);
-}
-</script>
+            // Simulate submission
+            setTimeout(() => {
+                submitText.textContent = 'Submit Inquiry';
+                submitArrow.classList.remove('hidden');
+                submitSpinner.classList.add('hidden');
+                formSuccess.classList.remove('hidden');
+                contactForm.reset();
 
+                // Re-init icons for the success checkmark
+                lucide.createIcons();
+
+                // Hide success message after 5s
+                setTimeout(() => {
+                    formSuccess.classList.add('hidden');
+                }, 5000);
+            }, 1500);
+        });
+    </script>
 </body>
 </html>
