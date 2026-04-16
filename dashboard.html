@@ -444,7 +444,9 @@
         logoutBtn.addEventListener('click', openLogoutModal);
         logoutOverlay.addEventListener('click', closeLogoutModal);
         logoutCancel.addEventListener('click', closeLogoutModal);
-        logoutConfirm.addEventListener('click', closeLogoutModal);
+        logoutConfirm.addEventListener('click', () => {
+		    window.location.href = 'index.html';
+		});
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeLogoutModal();
